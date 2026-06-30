@@ -372,30 +372,4 @@ Architecture
 
 # Complete System Flow
 
-Customer Arrives
-↓
-Waiter Assigns Table
-↓
-Create Order
-↓
-Order Sent to Kitchen
-↓
-Chef Starts Preparing
-↓
-Order Ready
-↓
-Waiter Receives Notification
-↓
-Food Served
-↓
-Cashier Receives Payment
-↓
-Receipt Printed
-↓
-Inventory Updated (Optional)
-↓
-Order Closed
-
-↓
-
-Table Available Again
+Customer Arrives -> Waiter Assigns Table -> Create Order -> Order Sent to Kitchen -> Chef Starts Preparing -> Order Ready -> Waiter Receives Notification -> Food Served -> Cashier Receives Payment -> Receipt Printed -> Inventory Updated (Optional) -> Order Closed -> Table Available Again
