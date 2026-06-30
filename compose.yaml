@@ -19,7 +19,7 @@ services:
       ASPNETCORE_URLS: http://+:8080
       ConnectionStrings__DefaultConnection: >
         Server=sqlserver;
-        Database=RestaurantPOS;
+        Database=Restaurant_POS;
         User Id=sa;
         Password=Pass1234;
         TrustServerCertificate=True;
