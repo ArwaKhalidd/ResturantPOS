@@ -1,0 +1,12 @@
+.idea/
+bin/
+obj/
+
+.vs/
+
+*.user
+*.suo
+
+TestResults/
+
+Migrations/
