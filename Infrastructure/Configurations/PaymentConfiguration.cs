@@ -17,7 +17,7 @@ public class PaymentConfiguration : IEntityTypeConfiguration<Payment>
             .HasForeignKey(x => x.CashierId);
 
         builder.HasOne(x => x.Order)
-            .WithMany(x => x.Payment)
+            .WithMany(x => x.Payments)
             .HasForeignKey(x => x.OrderId);
     }
 }

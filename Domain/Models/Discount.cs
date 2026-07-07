@@ -14,5 +14,5 @@ public class Discount
     public DateTime? AppliedAt { get; set; }
 
     public Employee? ApprovedByEmployee { get; set; }
-    public virtual Order Order { get; set; } = null!;
+    public  Order Order { get; set; } = null!;
 }

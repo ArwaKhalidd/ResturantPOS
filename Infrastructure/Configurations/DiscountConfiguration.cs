@@ -10,32 +10,35 @@ public class DiscountConfiguration : IEntityTypeConfiguration<Discount>
     {
         builder.ToTable("Discounts");
 
-        builder.HasKey(x => x.Id);
+        builder.HasKey(d => d.Id);
 
-        builder.Property(x => x.DiscountPercent)
+        builder.Property(d => d.Id)
+            .ValueGeneratedOnAdd();
+
+        builder.Property(d => d.DiscountPercent)
             .HasPrecision(5, 2);
 
-        builder.Property(x => x.DiscountAmount)
+        builder.Property(d => d.DiscountAmount)
             .HasPrecision(18, 2);
 
-        builder.Property(x => x.Reason)
+        builder.Property(d => d.Reason)
             .IsRequired()
             .HasMaxLength(255);
 
-        builder.Property(x => x.AppliedAt);
+        builder.Property(d => d.AppliedAt);
 
-        builder.HasOne(x => x.Order)
-            .WithMany(x => x.Discounts)
-            .HasForeignKey(x => x.OrderId)
+        builder.HasOne(d => d.Order)
+            .WithMany(o => o.Discounts)
+            .HasForeignKey(d => d.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasOne(x => x.ApprovedByEmployee)
-            .WithMany(x => x.Discounts)
-            .HasForeignKey(x => x.ApprovedBy)
+        builder.HasOne(d => d.ApprovedByEmployee)
+            .WithMany(e => e.Discounts)
+            .HasForeignKey(d => d.ApprovedBy)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasIndex(x => x.OrderId);
+        builder.HasIndex(d => d.OrderId);
 
-        builder.HasIndex(x => x.ApprovedBy);
+        builder.HasIndex(d => d.ApprovedBy);
     }
 }

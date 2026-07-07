@@ -17,10 +17,9 @@ namespace Domain.Models
 
         public virtual RestaurantTable Table { get; set; } = null!;
         public virtual Employee Waiter { get; set; } = null!;
-        public virtual ICollection<Payment> Payment { get; set; } = new List<Payment>();
+        public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
         public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
-        public virtual ICollection<Discount> Discounts { get; set; } = new List<Discount>();
-        public virtual ICollection<TableTransferLog> TableTransferLog { get; set; } = new List<TableTransferLog>();
+        public virtual ICollection<Discount> Discounts { get; set; } = new List<Discount>();        public virtual ICollection<TableTransferLog> TableTransferLog { get; set; } = new List<TableTransferLog>();
 
         public virtual ICollection<OrderStatusHistory> OrderStatusHistories { get; set; } =
             new List<OrderStatusHistory>();

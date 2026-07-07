@@ -2,7 +2,7 @@ using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Persistence.Configurations;
+namespace Infrastructure.Data.Configurations;
 
 public class OrderConfiguration : IEntityTypeConfiguration<Order>
 {
@@ -10,14 +10,65 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
     {
         builder.ToTable("Orders");
 
-        builder.HasKey(x => x.Id);
+        builder.HasKey(o => o.Id);
 
-        builder.HasOne(x => x.Table)
-            .WithMany(x => x.Orders)
-            .HasForeignKey(x => x.TableId);
+        builder.Property(o => o.Id)
+               .ValueGeneratedOnAdd();
 
-        builder.HasOne(x => x.Waiter)
-            .WithMany(x => x.Orders)
-            .HasForeignKey(x => x.WaiterId);
+        builder.Property(o => o.Status)
+               .IsRequired();
+
+        builder.Property(o => o.TotalAmount)
+               .HasColumnType("decimal(18,2)");
+
+        builder.Property(o => o.CreatedAt);
+
+        builder.Property(o => o.UpdatedAt);
+
+        // Relationships
+
+        builder.HasOne(o => o.Table)
+               .WithMany(t => t.Orders)
+               .HasForeignKey(o => o.TableId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(o => o.Waiter)
+               .WithMany(e => e.Orders)
+               .HasForeignKey(o => o.WaiterId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(o => o.OrderItems)
+               .WithOne(oi => oi.Order)
+               .HasForeignKey(oi => oi.OrderId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(o => o.Payments)
+               .WithOne(p => p.Order)
+               .HasForeignKey(p => p.OrderId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(o => o.Discounts)
+               .WithOne(d => d.Order)
+               .HasForeignKey(d => d.OrderId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(o => o.TableTransferLog)
+               .WithOne(t => t.Order)
+               .HasForeignKey(t => t.OrderId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(o => o.OrderStatusHistories)
+               .WithOne(h => h.Order)
+               .HasForeignKey(h => h.OrderId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+        //
+        builder.HasIndex(o => o.TableId);
+
+        builder.HasIndex(o => o.WaiterId);
+
+        builder.HasIndex(o => o.Status);
+
+        builder.HasIndex(o => o.CreatedAt);
     }
 }
